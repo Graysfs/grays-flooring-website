@@ -50,12 +50,18 @@
   }
 
   .nav-logo img {
-    height: 65px;
-    width: 220px;
-    display: block;
-    object-fit: contain;
-    object-position: left center;
-  }
+  height: 65px;
+  width: auto;          /* ← key fix: let SVG scale naturally */
+  max-width: 220px;     /* ← preserve desktop cap */
+  display: block;
+  object-fit: contain;
+  object-position: left center;
+  /* Anti-blur on high-DPI / mobile screens */
+  image-rendering: -webkit-optimize-contrast;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+}
+
 
   .nav-links {
     display: flex;
