@@ -1333,7 +1333,14 @@ nav .nav-links.open li a {
 nav .nav-links.open li a:hover {
   color: #427192;
 }
-
+@media (min-width: 769px) {
+  .nav-right {
+    display: flex;
+  }
+  .nav-right .hamburger {
+    display: none;
+  }
+}
 @media (max-width: 768px) {
   .nav-links {
     display: none;
