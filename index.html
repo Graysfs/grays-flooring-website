@@ -67,12 +67,10 @@
 
 
   .nav-links {
-    display: flex;
-    align-items: center;
-    gap: 40px;
-    list-style: none;
-    margin: 0 auto;
-  }
+  display: flex;
+  list-style: none;
+  gap: 2rem;
+}
 
   .nav-links a {
   font-family: 'Jost', sans-serif;
@@ -88,14 +86,20 @@
   .nav-links a:hover { color: var(--teal); }
 
   .nav-cta {
-    background: var(--navy) !important;
-    color: #fff !important;
-    padding: 11px 26px;
-    border-radius: 2px;
-    transition: background 0.2s !important;
-  }
+  background: var(--navy);
+  color: #fff;
+  font-family: 'Jost', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 0.6rem 1.4rem;
+  border-radius: var(--radius);
+  transition: background 0.2s;
+}
 
-  .nav-cta:hover { background: var(--teal) !important; }
+  .nav-cta:hover { background: var(--teal); }
 
   /* HERO */
   .hero {
