@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Customer Reviews | Gray's Flooring Services Queen Creek AZ</title>
+  <meta name="description" content="See what homeowners in Queen Creek, Florence, and San Tan Valley say about Gray's Flooring Services. Real reviews from real neighbors." />
+  <link rel="icon" href="/favicon.ico" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --white:#F9F6F2;--pure:#ffffff;--lblue:#427192;--dblue:#1A3B53;
+      --tan:#C1A57F;--navy:#1a2e44;--border:#e8e0d8;--text:#4a5568;--radius:2px;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'Jost',sans-serif;background:var(--white);color:var(--text);line-height:1.8;-webkit-font-smoothing:antialiased}
+
+    /* NAV */
+    nav{position:sticky;top:0;z-index:100;background:var(--pure);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 2.5rem;height:72px}
+    .nav-logo{display:flex;align-items:center;padding-right:500px}
+    .nav-logo a{display:flex;align-items:center}
+    .nav-logo img{height:65px;width:auto}
+    .nav-links{display:flex;list-style:none;gap:2rem}
+    .nav-links a{font-family:'Jost',sans-serif;font-size:.875rem;font-weight:500;letter-spacing:.04em;text-transform:uppercase;color:var(--dblue);text-decoration:none;transition:color .2s}
+    .nav-links a:hover{color:var(--lblue)}
+    .nav-right{display:flex;align-items:center;gap:1rem}
+    .nav-cta{background:var(--navy);color:#fff;font-family:'Jost',sans-serif;font-size:.8rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;text-decoration:none;padding:.6rem 1.4rem;border-radius:var(--radius);transition:background .2s}
+    .nav-cta:hover{background:var(--dblue)}
+    .hamburger{display:none;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;padding:4px}
+    .hamburger span{display:block;width:24px;height:2px;background:var(--dblue);border-radius:2px;transition:all .3s}
+
+    /* EYEBROW */
+    .eyebrow{display:inline-flex;align-items:center;gap:.6rem;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);margin-bottom:1.1rem}
+    .eyebrow::before{content:'';display:block;width:28px;height:1.5px;background:var(--tan);flex-shrink:0}
+
+    /* FADE */
+    .fade-up{opacity:0;transform:translateY(24px);transition:opacity .6s ease,transform .6s ease}
+    .fade-up.visible{opacity:1;transform:translateY(0)}
+
+    /* HERO */
+    .hero{background:var(--white);padding:5rem 2.5rem 3.5rem;text-align:center}
+    .hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,3.5vw,3rem);font-weight:700;color:var(--dblue);line-height:1.2;margin-bottom:1rem}
+    .hero h1 em{font-style:italic;color:var(--lblue)}
+    .hero p{font-size:1rem;color:var(--text);max-width:540px;margin:0 auto}
+
+    /* REVIEWS SECTION */
+    .reviews-section{background:var(--pure);padding:3.5rem 2.5rem 5rem}
+    .reviews-wrap{max-width:1200px;margin:0 auto}
+
+    /* CAROUSEL */
+    .carousel-outer{position:relative}
+    .carousel-track-wrap{overflow:hidden}
+    .carousel-track{display:flex;transition:transform .32s cubic-bezier(.4,0,.2,1)}
+
+    /* CARDS */
+    .review-card{flex:0 0 calc(33.333% - 1.1rem);margin-right:1.65rem;background:var(--white);border:1px solid var(--border);border-radius:8px;padding:2rem 1.75rem;display:flex;flex-direction:column;gap:1rem;transition:border-color .2s,box-shadow .2s}
+    .review-card:last-child{margin-right:0}
+    .review-card:hover{border-color:var(--tan);box-shadow:0 6px 28px rgba(26,43,83,.07)}
+
+    /* featured first card */
+    .review-card.featured{background:var(--dblue);border-color:var(--dblue)}
+    .review-card.featured .review-text{color:rgba(255,255,255,.9)}
+    .review-card.featured .reviewer-name{color:#fff}
+    .review-card.featured .reviewer-meta{color:rgba(255,255,255,.55)}
+    .review-card.featured .stars{color:var(--tan)}
+    .review-card.featured .platform-badge{background:rgba(255,255,255,.12);color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.2)}
+    .review-card.featured .avatar{background:rgba(255,255,255,.18);color:#fff}
+
+    .stars{display:flex;gap:3px;font-size:1rem;color:var(--tan)}
+    .review-text{font-family:'Playfair Display',serif;font-style:italic;font-size:.92rem;color:var(--dblue);line-height:1.75;flex:1}
+    .reviewer-row{display:flex;align-items:center;gap:.85rem;margin-top:auto}
+    .avatar{width:40px;height:40px;border-radius:50%;background:var(--dblue);color:#fff;font-family:'Jost',sans-serif;font-size:.9rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .reviewer-info{flex:1;min-width:0}
+    .reviewer-name{font-family:'Jost',sans-serif;font-size:.88rem;font-weight:600;color:var(--dblue);line-height:1.2}
+    .reviewer-meta{font-size:.75rem;color:var(--text);opacity:.7;margin-top:.1rem}
+    .platform-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.65rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--text);border:1px solid var(--border);border-radius:20px;padding:.18rem .65rem;margin-left:auto;flex-shrink:0;white-space:nowrap}
+    .platform-badge svg{width:11px;height:11px;flex-shrink:0}
+
+    /* CAROUSEL CONTROLS */
+    .carousel-controls{display:flex;align-items:center;justify-content:center;gap:1.5rem;margin-top:2.5rem}
+    .carousel-btn{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--dblue);transition:all .2s}
+    .carousel-btn:hover{background:var(--dblue);color:#fff;border-color:var(--dblue)}
+    .carousel-btn:disabled{opacity:.25;pointer-events:none}
+    .carousel-btn svg{width:18px;height:18px}
+    .carousel-dots{display:flex;gap:.5rem;align-items:center}
+    .carousel-dot{width:8px;height:8px;border-radius:50%;background:var(--border);border:none;cursor:pointer;padding:0;transition:all .2s}
+    .carousel-dot.active{background:var(--dblue);transform:scale(1.25)}
+
+    /* PLATFORM SECTION DIVIDER */
+    .platform-label{display:flex;align-items:center;gap:1rem;margin-bottom:2rem}
+    .platform-label span{font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tan);white-space:nowrap}
+    .platform-label::after{content:'';flex:1;height:1px;background:var(--border)}
+
+    /* CTA */
+    .cta-section{background:var(--dblue);padding:5.5rem 2.5rem;text-align:center}
+    .cta-badge{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--tan);border:1px solid rgba(193,165,127,.45);border-radius:20px;padding:.3rem 1rem;margin-bottom:1.4rem}
+    .cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#fff;line-height:1.2;margin-bottom:1.2rem}
+    .cta-section p{font-size:1rem;color:rgba(255,255,255,.78);max-width:520px;margin:0 auto 2.2rem}
+    .cta-buttons{display:flex;flex-wrap:wrap;justify-content:center;gap:1rem;margin-bottom:1.5rem}
+    .btn-white{display:inline-block;background:var(--navy);color:#fff;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:.9rem 2.2rem;border-radius:var(--radius);border:2px solid var(--navy);transition:background .2s}
+    .btn-white:hover{background:#111d2e;border-color:#111d2e}
+    .btn-outline{display:inline-block;background:transparent;color:#fff;font-family:'Jost',sans-serif;font-size:.78rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;padding:.9rem 2.2rem;border-radius:var(--radius);border:2px solid rgba(255,255,255,.45);transition:border-color .2s,background .2s}
+    .btn-outline:hover{border-color:#fff;background:rgba(255,255,255,.06)}
+    .cta-sub{font-size:.82rem;color:rgba(255,255,255,.5)}
+    .cta-sub a{color:rgba(255,255,255,.7);text-decoration:underline}
+
+    /* TRUST STRIP */
+    .trust-strip{background:var(--lblue);padding:2.2rem 2.5rem}
+    .trust-strip-inner{max-width:1200px;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 2.5rem}
+    .trust-item{display:flex;align-items:center;gap:.6rem;color:#fff;font-size:.82rem;font-weight:500;letter-spacing:.04em;white-space:nowrap}
+    .trust-item svg{width:18px;height:18px;color:var(--tan);flex-shrink:0}
+    .trust-sep{color:rgba(255,255,255,.3);font-size:1.2rem;line-height:1;align-self:center}
+
+    /* FOOTER */
+    footer{background:var(--navy);color:rgba(255,255,255,.75);font-size:.875rem}
+    .footer-top{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1.5fr;gap:2.5rem;padding:4rem 2.5rem 3rem}
+    .footer-brand{font-family:'Playfair Display',serif;font-size:1.25rem;font-weight:600;color:#fff;margin-bottom:.75rem}
+    .footer-desc{line-height:1.7;margin-bottom:.6rem}
+    .footer-roc{font-size:.78rem;color:var(--tan);font-weight:500;letter-spacing:.05em}
+    .footer-col h5{font-family:'Jost',sans-serif;font-size:.72rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--tan);margin-bottom:1rem}
+    .footer-links{list-style:none}
+    .footer-links li{margin-bottom:.4rem}
+    .footer-links a{color:rgba(255,255,255,.65);text-decoration:none;font-size:.875rem;transition:color .2s}
+    .footer-links a:hover{color:#fff}
+    .footer-contact-item{display:flex;align-items:flex-start;gap:.6rem;margin-bottom:.75rem}
+    .fc-icon{width:16px;height:16px;flex-shrink:0;margin-top:3px;fill:none;stroke:var(--tan);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .footer-contact-item a{color:rgba(255,255,255,.65);text-decoration:none}
+    .footer-contact-item a:hover{color:#fff}
+    .footer-bottom{border-top:1px solid rgba(255,255,255,.1);padding:1.25rem 2.5rem;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;flex-wrap:wrap;gap:.5rem;font-size:.78rem;color:rgba(255,255,255,.4)}
+    .footer-verse{font-style:italic}
+
+    /* RESPONSIVE */
+    @media(max-width:900px){
+      .review-card{flex:0 0 calc(50% - .85rem)}
+    }
+    @media(max-width:768px){
+      nav{padding:0 1.25rem}
+      .nav-logo{padding-right:0}
+      .nav-links{display:none;flex-direction:column}
+      .nav-links.open{display:flex;position:absolute;top:72px;left:0;right:0;background:var(--pure);border-bottom:1px solid var(--border);padding:1rem 1.5rem 1.5rem;gap:.75rem;z-index:99}
+      .hamburger{display:flex}
+      .hero{padding:3.5rem 1.25rem 2.5rem}
+      .reviews-section{padding:2.5rem 1.25rem 3.5rem}
+      .review-card{flex:0 0 calc(100% - 0px);margin-right:1.5rem}
+      .trust-strip{padding:1.75rem 1.25rem}
+      .trust-sep{display:none}
+      .trust-strip-inner{gap:.75rem 1.5rem;justify-content:flex-start}
+      .cta-section{padding:4rem 1.25rem}
+      .footer-top{grid-template-columns:1fr;padding:2.5rem 1.25rem 2rem}
+      .footer-bottom{padding:1rem 1.25rem;flex-direction:column;gap:.4rem}
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <a href="/index.html">
+      <img src="LOGO_PLACEHOLDER" alt="Gray's Flooring Services" />
+    </a>
+  </div>
+  <ul class="nav-links" id="nav-links">
+    <li><a href="/why-us.html">Why Us</a></li>
+    <li><a href="/index.html#services">Services</a></li>
+    <li><a href="/process.html">Process</a></li>
+    <li><a href="https://app.gethearth.com/partners/grays-flooring-services-llc?utm_campaign=46686&utm_content=darkblue&utm_medium=contractor-website&utm_source=contractor&utm_term=310x610" target="_blank">Financing</a></li>
+    <li><a href="/reviews.html">Reviews</a></li>
+    <li><a href="/index.html#gallery">Gallery</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://form.jotform.com/260065328407050" target="_blank" rel="noopener" class="nav-cta">Get a Quote</a>
+    <button class="hamburger" id="hamburger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="eyebrow fade-up">Real Neighbors, Real Results</div>
+  <h1 class="fade-up" style="transition-delay:.08s">What Our Customers<br><em>Are Saying</em></h1>
+  <p class="fade-up" style="transition-delay:.16s">We let our work speak for itself. Here is what homeowners across Queen Creek, Florence, and San Tan Valley have shared about working with Gray's Flooring.</p>
+</section>
+
+<!-- REVIEWS CAROUSEL -->
+<section class="reviews-section">
+  <div class="reviews-wrap fade-up" style="transition-delay:.1s">
+
+    <div class="carousel-outer">
+      <div class="carousel-track-wrap" id="track-wrap">
+        <div class="carousel-track" id="carousel-track">
+
+          <!-- ── PAGE 1 ── -->
+
+          <!-- Card 1: Valerie P. — featured -->
+          <div class="review-card featured">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"I highly recommend Gray's Flooring Services! From the moment I reached out, communication was clear and professional. They were prompt, reliable, and easy to work with throughout the entire process. Most importantly, the quality of their work is fantastic. I'm extremely happy with the results and wouldn't hesitate to use them again."</p>
+            <div class="reviewer-row">
+              <div class="avatar">V</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Valerie P.</div>
+                <div class="reviewer-meta">Verified Customer</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 2: Tori P. -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Robert replied quickly and came out within the same week. He was easy to communicate with, patient, and even explained to our kids what he was doing. The repair turned out great, the price was fair, and the whole process was stress-free. Definitely recommend!"</p>
+            <div class="reviewer-row">
+              <div class="avatar">T</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Tori P.</div>
+                <div class="reviewer-meta">Verified Customer</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 3: Hannah B. -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"We are very happy with the flooring job done by Gray's Flooring! Not only was the price better than anywhere else, they took their time, did what they said, and did a beautiful job. The owner even came out and inspected the job at the end to make sure everything was good. We highly recommend using Gray's Flooring!"</p>
+            <div class="reviewer-row">
+              <div class="avatar">H</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Hannah B.</div>
+                <div class="reviewer-meta">Verified Customer</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- ── PAGE 2 ── -->
+
+          <!-- Card 4: Daven Edwards -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"I just want to say thank you! What an amazing company! They went out of their way to help me on their day off when I was in a tough situation. The owner, Robert, is a true class act. He took the time to understand my situation and went far beyond what I expected. It's rare to find businesses that genuinely care about people the way they do. I highly recommend them to anyone looking for honest service and great customer care."</p>
+            <div class="reviewer-row">
+              <div class="avatar">D</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Daven Edwards</div>
+                <div class="reviewer-meta">San Tan Valley, AZ</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 5: Jess Horne -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"This has been the most ideal flooring company to hire for my tile install. Such an amazing experience working with Sami and Kinder. They are kind, knowledgeable, professional, and forward thinkers. I cannot stress enough how simple they made the process. From the first conversation to completing the install they had very thorough communication and problem solving skills. I highly recommend their services. Absolutely fantastic company and team!"</p>
+            <div class="reviewer-row">
+              <div class="avatar">J</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Jess Horne</div>
+                <div class="reviewer-meta">Verified Customer</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 6: Mary Dryden -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Just had serious demolition done to our house due to a sewer line replacement. Gray's Flooring was referred to us and Robert responded immediately. His project manager came the same day, work was scheduled within days, and Tim our installer came every day until the project was done. Both Tim and Sammie were great answering all our questions. This is an amazing company and they did a fantastic job. Very knowledgeable, meticulous, and their price was very reasonable. We will not hesitate to hire them again."</p>
+            <div class="reviewer-row">
+              <div class="avatar">M</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Mary Dryden</div>
+                <div class="reviewer-meta">Local Guide</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- ── PAGE 3 ── -->
+
+          <!-- Card 7: Silvia Pemberty -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Contacted them on very short notice for a vinyl installation on a 400 sq ft room. They were able to give me a quote over the phone and scheduled the installation for the very next day. Everything turned out great. Very professional, well priced, and delivered as expected. Will definitely hire again."</p>
+            <div class="reviewer-row">
+              <div class="avatar">S</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Silvia Pemberty</div>
+                <div class="reviewer-meta">Verified Customer</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 8: Collin Miller -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"Gray's Flooring came out and offered several different options to protect and upgrade our flooring. They were never pushy but gave us their honest opinion as well as the pros and cons of each option. They even lowered the price after doing the amazing work and realizing the price did not reflect the effort required. That is unreal customer service. They deserve more than 5 stars."</p>
+            <div class="reviewer-row">
+              <div class="avatar">C</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Collin Miller</div>
+                <div class="reviewer-meta">Verified Customer</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+                Google
+              </span>
+            </div>
+          </div>
+
+          <!-- Card 9: Nancy Bailey -->
+          <div class="review-card">
+            <div class="stars">★★★★★</div>
+            <p class="review-text">"I was very impressed with the owner, Robert Gray. He worked with me every step of the way through my selections and made great recommendations. I had vinyl planks and carpet installed throughout my house. His crews were respectful of me and my property, meticulous with their work, and cleaned up every day before they left. Their work ethic was impressive, not something I see often anymore. I will hire them again if I need new floors."</p>
+            <div class="reviewer-row">
+              <div class="avatar">N</div>
+              <div class="reviewer-info">
+                <div class="reviewer-name">Nancy Bailey</div>
+                <div class="reviewer-meta">Verified Customer</div>
+              </div>
+              <span class="platform-badge">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+                Facebook
+              </span>
+            </div>
+          </div>
+
+        </div><!-- /carousel-track -->
+      </div><!-- /track-wrap -->
+
+      <!-- CONTROLS -->
+      <div class="carousel-controls">
+        <button class="carousel-btn" id="btn-prev" disabled aria-label="Previous">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <div class="carousel-dots" id="carousel-dots">
+          <button class="carousel-dot active" data-page="0" aria-label="Page 1"></button>
+          <button class="carousel-dot" data-page="1" aria-label="Page 2"></button>
+          <button class="carousel-dot" data-page="2" aria-label="Page 3"></button>
+        </div>
+        <button class="carousel-btn" id="btn-next" aria-label="Next">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+
+    </div><!-- /carousel-outer -->
+
+  </div>
+</section>
+
+<!-- TRUST STRIP -->
+<div class="trust-strip">
+  <div class="trust-strip-inner">
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/>
+      </svg>
+      Family Owned &middot; Queen Creek AZ
+    </div>
+    <span class="trust-sep">&middot;</span>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="1" y="4" width="22" height="16" rx="2" ry="2"/><line x1="1" y1="10" x2="23" y2="10"/>
+      </svg>
+      Financing Available &middot; Ask Us Today
+    </div>
+    <span class="trust-sep">&middot;</span>
+    <div class="trust-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
+      </svg>
+      Free Estimates &middot; No Obligation
+    </div>
+  </div>
+</div>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="fade-up">
+    <div class="cta-badge">Free Estimate &middot; No Obligation</div>
+    <h2>Ready to Join Our<br><em>Happy Customers?</em></h2>
+    <p>Take the first step toward your dream floors. Fill out our quick quote form and we will get back to you fast, usually within 24 hours.</p>
+    <div class="cta-buttons">
+      <a href="https://form.jotform.com/260065328407050" target="_blank" rel="noopener" class="btn-white">Request Your Free Quote</a>
+      <a href="tel:4804958209" class="btn-outline">Call (480) 495-8209</a>
+    </div>
+    <p class="cta-sub">Or call us directly: <a href="tel:4804958209">(480) 495-8209</a></p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">Gray's Flooring Services</div>
+      <p class="footer-desc">Your local, family-owned flooring and custom tile shower specialists. Serving Florence, San Tan Valley, and the surrounding communities with quality craftsmanship and honest pricing.</p>
+      <p class="footer-roc">ROC License #350881</p>
+    </div>
+    <div class="footer-col">
+      <h5>Services</h5>
+      <ul class="footer-links">
+        <li><a href="/index.html#services">Luxury Vinyl Plank</a></li>
+        <li><a href="/index.html#services">Tile Installation</a></li>
+        <li><a href="/index.html#services">Custom Tile Showers</a></li>
+        <li><a href="/index.html#services">Carpet</a></li>
+        <li><a href="/index.html#services">Repairs &amp; Restoration</a></li>
+        <li><a href="/index.html#services">Hardwood Flooring</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Company</h5>
+      <ul class="footer-links">
+        <li><a href="/why-us.html">Why Us</a></li>
+        <li><a href="/index.html#services">Services</a></li>
+        <li><a href="/process.html">Process</a></li>
+        <li><a href="https://app.gethearth.com/partners/grays-flooring-services-llc?utm_campaign=46686&utm_content=darkblue&utm_medium=contractor-website&utm_source=contractor&utm_term=310x610" target="_blank">Financing</a></li>
+        <li><a href="/reviews.html">Reviews</a></li>
+        <li><a href="/index.html#gallery">Gallery</a></li>
+        <li><a href="/index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Contact</h5>
+      <div class="footer-contact-item">
+        <svg class="fc-icon" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.6 1h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 5.55 5.55l.96-.96a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <a href="tel:4804958209">(480) 495-8209</a>
+      </div>
+      <div class="footer-contact-item">
+        <svg class="fc-icon" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+        <span>Florence, AZ 85132</span>
+      </div>
+      <div class="footer-contact-item">
+        <svg class="fc-icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        <span>Mon-Fri 8am-5pm &middot; Sat 8am-12pm &middot; Sun Closed</span>
+      </div>
+      <div class="footer-contact-item">
+        <svg class="fc-icon" viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+        <a href="https://www.facebook.com/profile.php?id=61553223387500" target="_blank">Facebook Page</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 Gray's Flooring Services LLC. All rights reserved.</span>
+    <span class="footer-verse">"Whatever you do, work at it with all your heart." Colossians 3:23</span>
+  </div>
+</footer>
+
+<script>
+  // Hamburger
+  const hamburger = document.getElementById('hamburger');
+  const navLinks  = document.getElementById('nav-links');
+  hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+
+  // Fade-up
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); }});
+  }, {threshold:0.12});
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Carousel
+  const track      = document.getElementById('carousel-track');
+  const wrap       = document.getElementById('track-wrap');
+  const btnPrev    = document.getElementById('btn-prev');
+  const btnNext    = document.getElementById('btn-next');
+  const dots       = document.querySelectorAll('.carousel-dot');
+  const cards      = document.querySelectorAll('.review-card');
+  const totalCards = cards.length; // 9
+  let current = 0;
+
+  function cardsPerPage() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 900) return 2;
+    return 3;
+  }
+
+  function totalPages() {
+    return Math.ceil(totalCards / cardsPerPage());
+  }
+
+  function cardWidth() {
+    return cards[0].offsetWidth + parseInt(getComputedStyle(cards[0]).marginRight);
+  }
+
+  function goTo(page) {
+    const cpp = cardsPerPage();
+    current = Math.max(0, Math.min(page, totalPages() - 1));
+    const offset = current * cpp * cardWidth();
+    track.style.transform = `translateX(-${offset}px)`;
+    dots.forEach((d, i) => d.classList.toggle('active', i === current));
+    btnPrev.disabled = current === 0;
+    btnNext.disabled = current >= totalPages() - 1;
+  }
+
+  btnPrev.addEventListener('click', () => goTo(current - 1));
+  btnNext.addEventListener('click', () => goTo(current + 1));
+  dots.forEach(dot => dot.addEventListener('click', () => goTo(parseInt(dot.dataset.page))));
+
+  // Keyboard
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') goTo(current + 1);
+    if (e.key === 'ArrowLeft')  goTo(current - 1);
+  });
+
+  // Touch swipe
+  let touchStartX = 0;
+  wrap.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, {passive:true});
+  wrap.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 40) dx < 0 ? goTo(current + 1) : goTo(current - 1);
+  }, {passive:true});
+
+  // Recalc on resize
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(() => goTo(0), 150);
+  });
+
+  // Init
+  goTo(0);
+</script>
+</body>
+</html>
